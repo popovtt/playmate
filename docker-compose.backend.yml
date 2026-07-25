@@ -1,0 +1,18 @@
+services:
+  backend:
+    container_name: backend
+    restart: always
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    ports:
+      - "8000:8000"
+    command: gunicorn -w 1 -k uvicorn.workers.UvicornWorker -b 0.0.0.0:8000 backend.app:app
+    env_file:
+      - .env
+    networks:
+      - main
+
+networks:
+  main:
+    driver: bridge

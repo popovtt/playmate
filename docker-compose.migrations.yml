@@ -1,0 +1,16 @@
+services:
+  migrations:
+    container_name: migrations
+    restart: no
+    build:
+      context: ./
+      dockerfile: migrations/Dockerfile
+    command: alembic upgrade head
+    env_file:
+      - .env
+    networks:
+      - main
+
+networks:
+  main:
+    driver: bridge
